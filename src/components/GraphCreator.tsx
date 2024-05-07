@@ -1,13 +1,17 @@
 "use client";
 
+import { fetchCountries } from "@/lib/graphs";
 import { ChangeEvent, useState, useEffect } from "react";
 
 type GraphCreatorProps = {
   onCountrySelect: (country: string) => void;
+  exclude: string[];
 };
-const exclude: string[] = [];
 
-export default function GraphCreator({ onCountrySelect }: GraphCreatorProps) {
+export default function GraphCreator({
+  onCountrySelect,
+  exclude,
+}: GraphCreatorProps) {
   const [showCountrySelect, setShowCountrySelect] = useState<boolean>(false);
   const [options, setOptions] = useState<string[]>([]);
 
@@ -16,15 +20,22 @@ export default function GraphCreator({ onCountrySelect }: GraphCreatorProps) {
     setShowCountrySelect(false);
   };
 
+  const filterOptions = (options: string[]) => {
+    return options.filter((option) => !exclude.includes(option));
+  };
+
+  const fetchOptions = async () => {
+    const options = await fetchCountries();
+    setOptions(filterOptions(options));
+  };
+
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/graphs/countries?exclude=${exclude.join(",")}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setOptions(res);
-      });
+    fetchOptions();
   }, []);
+
+  useEffect(() => {
+    setOptions(filterOptions(options));
+  }, [exclude]);
 
   return (
     <div className="border p-2 m-2 w-[500px] h-[350px] flex flex-col justify-center items-center">

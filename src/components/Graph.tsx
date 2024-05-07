@@ -1,33 +1,32 @@
 "use client";
 import ApexChart from "react-apexcharts";
 import IconDelete from "@/components/icons/IconDetete";
-import { GraphType } from "@/types/Graph";
+import { GraphSeriesName, GraphSettings, GraphType } from "@/types/Graph";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useLocalGraphStore } from "@/store/useGraphStore";
 
 type GraphProps = {
   graph: GraphType;
   onDelete: () => void;
 };
 
-type GraphSeriesName = "Actual" | "Last year" | "Forecast";
-
 export default function Graph({ graph, onDelete }: GraphProps) {
   const series = [
     {
       type: "bar",
-      name: "Actual",
+      name: GraphSeriesName.ACTUAL,
       data: graph.actual,
       color: "#008FFB",
     },
     {
       type: "bar",
-      name: "Last year",
+      name: GraphSeriesName.LAST_YEAR,
       data: graph.lastYear,
       color: "#00E396",
     },
     {
       type: "line",
-      name: "Forecast",
+      name: GraphSeriesName.FORECAST,
       data: graph.forecast,
       color: "#FEBC3B",
     },
@@ -44,22 +43,20 @@ export default function Graph({ graph, onDelete }: GraphProps) {
       categories: graph.months,
     },
   };
+  const { getLocalGraphSettings, setLocalGraphSettings } = useLocalGraphStore();
   const [filteredSeries, setFilteredSeries] = useState(series);
-  const [showSeries, setShowSeries] = useState({
-    Actual: true,
-    "Last year": true,
-    Forecast: true,
-  });
+  const [showSeries, setShowSeries] = useState<GraphSettings>(
+    getLocalGraphSettings(graph.country)
+  );
 
   const toggleSeries =
-    (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    (name: GraphSeriesName) => (event: ChangeEvent<HTMLInputElement>) => {
       setShowSeries((prev) => ({ ...prev, [name]: event.target.checked }));
     };
 
   useEffect(() => {
-    setFilteredSeries(
-      series.filter((item) => showSeries[item.name as GraphSeriesName])
-    );
+    setFilteredSeries(series.filter((item) => showSeries[item.name]));
+    setLocalGraphSettings(graph.country, showSeries);
   }, [showSeries]);
 
   return (
@@ -76,7 +73,7 @@ export default function Graph({ graph, onDelete }: GraphProps) {
             id={`${name}-${graph.country}`}
             type="checkbox"
             onChange={toggleSeries(name)}
-            defaultChecked
+            checked={showSeries[name]}
           />
           <label htmlFor={`${name}-${graph.country}`} className="ml-1">
             <span>{name}</span>
