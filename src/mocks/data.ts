@@ -26,10 +26,10 @@ export const COUNTRIES = [
   "United Kingdom",
 ];
 
-export const getRandomValues = () => {
+export const getRandomValues = (count: number) => {
   let randomNumbers = [];
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < count; i++) {
     let randomNumber = Math.floor(Math.random() * (100 - 20 + 1)) + 20;
     randomNumbers.push(randomNumber);
   }

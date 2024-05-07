@@ -1,12 +1,16 @@
 "use client";
 
 import Graph from "@/components/Graph";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GraphCreator from "@/components/GraphCreator";
 import { GraphType } from "@/types/Graph";
 
 export default function Dashboard() {
   const [graphs, setGraphs] = useState<GraphType[]>([]);
+
+  // useEffect(() => {
+  //   addGraph("Poland");
+  // }, []);
 
   const addGraph = async (country: string) => {
     const graph = await fetch(
