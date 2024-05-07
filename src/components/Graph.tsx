@@ -1,37 +1,52 @@
 "use client";
 import ApexChart from "react-apexcharts";
+import IconDelete from "@/components/icons/IconDetete";
+import { GraphType } from "@/types/Graph";
 
 type GraphProps = {
-  country: string;
+  graph: GraphType;
+  onDelete: () => void;
 };
 
-export default function Graph({ country }: GraphProps) {
+export default function Graph({ graph, onDelete }: GraphProps) {
   const config = {
     options: {
+      type: "bar",
+      title: {
+        text: graph.country,
+      },
       chart: {
-        id: "basic-bar",
+        id: "bar",
       },
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        categories: graph.months,
       },
     },
     series: [
       {
-        name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91],
+        type: "bar",
+        name: "Actual",
+        data: graph.actual,
+      },
+      {
+        type: "bar",
+        name: "Last year",
+        data: graph.lastYear,
+      },
+      {
+        type: "line",
+        name: "Forecast",
+        data: graph.forecast,
       },
     ],
   };
 
   return (
-    <div className="border-2 p-2 m-2 w-fit">
-      <h3>{country}</h3>
-      <ApexChart
-        options={config.options}
-        series={config.series}
-        type="bar"
-        width="500"
-      />
+    <div className="border-2 p-2 m-2 w-fit flex items-start">
+      <ApexChart options={config.options} series={config.series} width="500" />
+      <button onClick={onDelete}>
+        <IconDelete />
+      </button>
     </div>
   );
 }
