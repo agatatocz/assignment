@@ -98,7 +98,7 @@ describe("Mock data generators", () => {
       "should return array of 12 months with $month under 8th index",
       ({ monthIndex, expected }) => {
         jest.spyOn(Date.prototype, "getUTCMonth").mockReturnValue(monthIndex);
-        const actual = getMonths();
+        const actual = getMonths(8, 4);
         expect(actual).toEqual(expected);
       }
     );
