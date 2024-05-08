@@ -14,7 +14,13 @@ export enum GraphSeriesName {
 export type GraphSettings = {
   [key in GraphSeriesName]: boolean;
 };
+
 export type GraphState = {
   country: string;
   settings: GraphSettings;
+};
+
+export type MonthCount = {
+  data: number;
+  forecast: number;
 };

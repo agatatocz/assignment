@@ -41,6 +41,10 @@ export default function Graph({ graph, onDelete }: GraphProps) {
     },
     xaxis: {
       categories: graph.months,
+      labels: {
+        rotate: -45,
+        rotateAlways: true,
+      },
     },
   };
   const { getLocalGraphSettings, setLocalGraphSettings } = useLocalGraphStore();
@@ -57,7 +61,7 @@ export default function Graph({ graph, onDelete }: GraphProps) {
   useEffect(() => {
     setFilteredSeries(series.filter((item) => showSeries[item.name]));
     setLocalGraphSettings(graph.country, showSeries);
-  }, [showSeries]);
+  }, [showSeries, graph]);
 
   return (
     <div className="border-2 p-2 m-2 w-fit">
