@@ -1,18 +1,22 @@
 export const fetchGraphData = async (country: string) => {
-  const data = await fetch(`http://localhost:3000/api/graphs/${country}`).then(
-    (res) => res.json()
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphs/${country}`
   );
-  return data;
+  return data.json();
 };
+
 export const fetchMultipleGraphsData = async (countries: string[]) => {
   const data = await fetch(
-    `http://localhost:3000/api/graphs/?countryList=${countries.join(",")}`
-  ).then((res) => res.json());
-  return data;
-};
-export const fetchCountries = async () => {
-  const data = await fetch(`http://localhost:3000/api/graphs/countries`).then(
-    (res) => res.json()
+    `${
+      process.env.NEXT_PUBLIC_BASE_URL
+    }/api/graphs/?countryList=${countries.join(",")}`
   );
-  return data;
+  return data.json();
+};
+
+export const fetchCountries = async () => {
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphs/countries`
+  );
+  return data.json();
 };

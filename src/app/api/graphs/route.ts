@@ -1,4 +1,4 @@
-import { MONTHS, getRandomValues } from "@/mocks/data";
+import { getMonths, getRandomValues } from "@/mocks/data";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     actual: getRandomValues(8),
     lastYear: getRandomValues(8),
     forecast: getRandomValues(12),
-    months: MONTHS,
+    months: getMonths(),
   }));
   return new Response(JSON.stringify(data));
 }

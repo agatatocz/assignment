@@ -36,3 +36,23 @@ export const getRandomValues = (count: number) => {
 
   return randomNumbers;
 };
+
+export const getMonths = () => {
+  const currentMonth: number = new Date().getUTCMonth();
+  if (currentMonth === 7) return MONTHS;
+  const months = [...MONTHS];
+
+  if (currentMonth < 7) {
+    for (let i = currentMonth; i < 8; i++) {
+      const lastMonth = months.pop();
+      months.unshift(lastMonth as string);
+    }
+    return months;
+  } else {
+    for (let i = currentMonth; i > 7; i--) {
+      const lastMonth = months.shift();
+      months.push(lastMonth as string);
+    }
+    return months;
+  }
+};

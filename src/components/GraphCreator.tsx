@@ -13,6 +13,7 @@ export default function GraphCreator({
   exclude,
 }: GraphCreatorProps) {
   const [showCountrySelect, setShowCountrySelect] = useState<boolean>(false);
+  const [countries, setCountries] = useState<string[]>([]);
   const [options, setOptions] = useState<string[]>([]);
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -20,13 +21,17 @@ export default function GraphCreator({
     setShowCountrySelect(false);
   };
 
-  const filterOptions = (options: string[]) => {
-    return options.filter((option) => !exclude.includes(option));
+  const updateOptions = () => {
+    const filteredOptions = countries.filter(
+      (country) => !exclude.includes(country)
+    );
+    setOptions(filteredOptions);
   };
 
   const fetchOptions = async () => {
-    const options = await fetchCountries();
-    setOptions(filterOptions(options));
+    const countries = await fetchCountries();
+    setCountries(countries);
+    updateOptions();
   };
 
   useEffect(() => {
@@ -34,31 +39,39 @@ export default function GraphCreator({
   }, []);
 
   useEffect(() => {
-    setOptions(filterOptions(options));
+    updateOptions();
   }, [exclude]);
 
   return (
-    <div className="border p-2 m-2 w-[500px] h-[350px] flex flex-col justify-center items-center">
-      <button
-        className="font-bold"
-        onClick={() => {
-          setShowCountrySelect(true);
-        }}
-      >
-        Add new graph
-      </button>
+    <div className="border p-2 m-2 w-[544px] h-[380px] flex flex-col justify-center items-center">
       {showCountrySelect ? (
-        <select onChange={handleSelectChange} defaultValue="">
-          <option value="" disabled hidden>
-            Select country
-          </option>
-          {options.map((option) => (
-            <option value={option} key={option}>
-              {option}
+        <>
+          <h3 className={`font-bold`}>Add new graph</h3>
+          <select
+            onChange={handleSelectChange}
+            defaultValue=""
+            className="hover:cursor-pointer"
+          >
+            <option value="" disabled hidden>
+              Select country
             </option>
-          ))}
-        </select>
-      ) : null}
+            {options.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : (
+        <button
+          className={`font-bold hover:text-blue-600 transition-colors ease-in-out`}
+          onClick={() => {
+            setShowCountrySelect(true);
+          }}
+        >
+          Add new graph
+        </button>
+      )}
     </div>
   );
 }
