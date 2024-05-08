@@ -22,7 +22,7 @@ export default function MonthCountForm({
 
   return (
     <form onSubmit={handleMonthsCountSubmit} className="m-3">
-      <div>
+      <div className="m-1">
         <span>Show data from last</span>
         <input
           className="w-10 mx-1 border-2"
@@ -34,7 +34,7 @@ export default function MonthCountForm({
         />
         <span>months</span>
       </div>
-      <div>
+      <div className="m-1">
         <span>Show forecast for next</span>
         <input
           className="w-10 mx-1 border-2"
@@ -50,7 +50,7 @@ export default function MonthCountForm({
         type="submit"
         className="block bg-blue-500 p-2 text-white font-semibold rounded"
       >
-        refresh
+        Apply
       </button>
     </form>
   );

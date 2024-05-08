@@ -64,8 +64,8 @@ export default function Graph({ graph, onDelete }: GraphProps) {
   }, [showSeries, graph]);
 
   return (
-    <div className="border-2 p-2 m-2 w-fit">
-      <div className="flex items-start">
+    <div className="border-2 p-2 m-2 w-[544px] h-[380px] relative">
+      <div className="flex items-start justify-end">
         <ApexGraph
           options={options}
           series={filteredSeries}
@@ -76,7 +76,7 @@ export default function Graph({ graph, onDelete }: GraphProps) {
           <IconDelete />
         </button>
       </div>
-      <div className="flex justify-evenly">
+      <div className="flex justify-evenly absolute bottom-2 inset-x-0">
         {series.map(({ name }) => (
           <label key={name} className="flex items-center cursor-pointer">
             <input
