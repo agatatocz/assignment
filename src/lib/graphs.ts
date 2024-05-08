@@ -4,7 +4,7 @@ export const fetchGraphData = async (
   forecastMonthsCount?: number
 ) => {
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/graphs/${country}/?dataMonthsCount=${dataMonthsCount}&forecastMonthsCount=${forecastMonthsCount}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphs/${country}/?dataMonthsCount=${dataMonthsCount}&forecastMonthsCount=${forecastMonthsCount}`
   );
   return data.json();
 };
@@ -16,7 +16,7 @@ export const fetchMultipleGraphsData = async (
 ) => {
   const data = await fetch(
     `${
-      process.env.NEXT_PUBLIC_VERCEL_URL
+      process.env.NEXT_PUBLIC_BASE_URL
     }/api/graphs/?countryList=${countries.join(
       ","
     )}&dataMonthsCount=${dataMonthsCount}&forecastMonthsCount=${forecastMonthsCount}`
@@ -26,7 +26,7 @@ export const fetchMultipleGraphsData = async (
 
 export const fetchCountries = async () => {
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/graphs/countries`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphs/countries`
   );
   return data.json();
 };
