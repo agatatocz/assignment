@@ -21,7 +21,7 @@ export default function GraphCreator({
     setShowCountrySelect(false);
   };
 
-  const updateOptions = () => {
+  const updateOptions = (countries: string[]) => {
     const filteredOptions = countries.filter(
       (country) => !exclude.includes(country)
     );
@@ -31,7 +31,7 @@ export default function GraphCreator({
   const fetchOptions = async () => {
     const countries = await fetchCountries();
     setCountries(countries);
-    updateOptions();
+    updateOptions(countries);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function GraphCreator({
   }, []);
 
   useEffect(() => {
-    updateOptions();
+    updateOptions(countries);
   }, [exclude]);
 
   return (

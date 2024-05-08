@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [monthsCount, setMonthsCount] = useState<MonthCount>(
     getLocalMonthsCount()
   );
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchLocalGraphData = async () => {
     const localCountries = getLocalGraphs().map(({ country }) => country);
@@ -30,7 +31,10 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchLocalGraphData();
+    setLoading(true);
+    fetchLocalGraphData().finally(() => {
+      setLoading(false);
+    });
   }, [monthsCount]);
 
   const addGraph = async (country: string) => {
@@ -53,6 +57,8 @@ export default function Dashboard() {
     setMonthsCount(monthsCount);
     saveLocalMonthsCount(monthsCount);
   };
+
+  if (loading) return <div>loading</div>;
 
   return (
     <>

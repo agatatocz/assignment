@@ -1,9 +1,9 @@
 "use client";
-import ApexChart from "react-apexcharts";
 import IconDelete from "@/components/icons/IconDetete";
 import { GraphSeriesName, GraphSettings, GraphType } from "@/types/Graph";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocalGraphStore } from "@/store/useGraphStore";
+import ApexGraph from "./ApexGraph";
 
 type GraphProps = {
   graph: GraphType;
@@ -66,7 +66,12 @@ export default function Graph({ graph, onDelete }: GraphProps) {
   return (
     <div className="border-2 p-2 m-2 w-fit">
       <div className="flex items-start">
-        <ApexChart options={options} series={filteredSeries} width="500" />
+        <ApexGraph
+          options={options}
+          series={filteredSeries}
+          width={500}
+          height={320}
+        />
         <button onClick={onDelete}>
           <IconDelete />
         </button>

@@ -1,3 +1,4 @@
+"use client";
 import { MonthCount } from "@/types/Graph";
 import { FormEvent } from "react";
 
