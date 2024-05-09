@@ -1,16 +1,16 @@
 "use client";
-import IconDelete from "@/components/icons/IconDetete";
-import { GraphSeriesName, GraphSettings, GraphType } from "@/types/Graph";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useLocalGraphStore } from "@/store/useGraphStore";
-import ApexGraph from "./ApexGraph";
+import { GraphSeriesName, GraphSettings, GraphType } from "@/types/Graph";
+import { IconDelete } from "@/components/icons";
+import { ApexGraph } from "@/components/ApexGraph";
+import { useLocalGraphStore } from "@/store/useLocalGraphStore";
 
 type GraphProps = {
   graph: GraphType;
   onDelete: () => void;
 };
 
-export default function Graph({ graph, onDelete }: GraphProps) {
+export function Graph({ graph, onDelete }: GraphProps) {
   const series = [
     {
       type: "bar",
@@ -64,7 +64,10 @@ export default function Graph({ graph, onDelete }: GraphProps) {
   }, [showSeries, graph]);
 
   return (
-    <div className="border-2 p-2 m-2 w-[544px] min-h-[400px] h-fit max-w-full relative">
+    <div
+      className="border-2 p-2 m-2 w-[544px] min-h-[400px] h-fit max-w-full relative"
+      data-testid="graph-test-id"
+    >
       <ApexGraph
         options={options}
         series={filteredSeries}

@@ -7,7 +7,7 @@ type MonthCountFormProps = {
   defaultValues: { data: number; forecast: number };
 };
 
-export default function MonthCountForm({
+export function MonthCountForm({
   onSubmit,
   defaultValues,
 }: MonthCountFormProps) {

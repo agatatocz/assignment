@@ -8,10 +8,7 @@ type GraphCreatorProps = {
   exclude: string[];
 };
 
-export default function GraphCreator({
-  onCountrySelect,
-  exclude,
-}: GraphCreatorProps) {
+export function GraphCreator({ onCountrySelect, exclude }: GraphCreatorProps) {
   const [showCountrySelect, setShowCountrySelect] = useState<boolean>(false);
   const [countries, setCountries] = useState<string[]>([]);
   const [options, setOptions] = useState<string[]>([]);
@@ -46,8 +43,11 @@ export default function GraphCreator({
     <div className="border-2 p-2 m-2 w-[544px] h-[400px] max-w-full flex flex-col justify-center items-center">
       {showCountrySelect ? (
         <>
-          <h3 className={`font-bold`}>Add new graph</h3>
+          <label className={`font-bold`} htmlFor="country-select">
+            Add new graph
+          </label>
           <select
+            id="country-select"
             onChange={handleSelectChange}
             defaultValue=""
             className="hover:cursor-pointer"
@@ -56,7 +56,7 @@ export default function GraphCreator({
               Select country
             </option>
             {options.map((option) => (
-              <option value={option} key={option}>
+              <option value={option} key={`option-${option}`}>
                 {option}
               </option>
             ))}

@@ -1,15 +1,14 @@
 "use client";
 
-import Graph from "@/components/Graph";
 import { useEffect, useState } from "react";
-import GraphCreator from "@/components/GraphCreator";
 import { GraphType, MonthCount } from "@/types/Graph";
-import { useLocalGraphStore } from "@/store/useGraphStore";
 import { fetchGraphData, fetchMultipleGraphsData } from "@/lib/graphs";
-import MonthCountForm from "./MonthCountForm";
-import { useLocalMonthStore } from "@/store/useMonthStore";
+import { Graph } from "@/components/Graph";
+import { GraphCreator } from "@/components/GraphCreator";
+import { MonthCountForm } from "@/components/MonthCountForm";
+import { useLocalGraphStore, useLocalMonthStore } from "@/store";
 
-export default function Dashboard() {
+export function Dashboard() {
   const { getLocalGraphs, saveLocalGraph, deleteLocalGraph } =
     useLocalGraphStore();
   const { getLocalMonthsCount, saveLocalMonthsCount } = useLocalMonthStore();

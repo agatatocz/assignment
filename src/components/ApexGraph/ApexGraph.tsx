@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function ApexGraph(props: any) {
+export function ApexGraph(props: any) {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setTimeout(() => {
