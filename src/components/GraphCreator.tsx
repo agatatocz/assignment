@@ -43,7 +43,7 @@ export default function GraphCreator({
   }, [exclude]);
 
   return (
-    <div className="border-2 p-2 m-2 w-[544px] h-[380px] flex flex-col justify-center items-center">
+    <div className="border-2 p-2 m-2 w-[544px] h-[400px] max-w-full flex flex-col justify-center items-center">
       {showCountrySelect ? (
         <>
           <h3 className={`font-bold`}>Add new graph</h3>

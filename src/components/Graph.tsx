@@ -64,19 +64,14 @@ export default function Graph({ graph, onDelete }: GraphProps) {
   }, [showSeries, graph]);
 
   return (
-    <div className="border-2 p-2 m-2 w-[544px] h-[380px] relative">
-      <div className="flex items-start justify-end">
-        <ApexGraph
-          options={options}
-          series={filteredSeries}
-          width={500}
-          height={320}
-        />
-        <button onClick={onDelete}>
-          <IconDelete />
-        </button>
-      </div>
-      <div className="flex justify-evenly absolute bottom-2 inset-x-0">
+    <div className="border-2 p-2 m-2 w-[544px] min-h-[400px] h-fit max-w-full relative">
+      <ApexGraph
+        options={options}
+        series={filteredSeries}
+        width={"100%"}
+        height={320}
+      />
+      <div className="flex justify-around flex-wrap absolute bottom-2 inset-x-0">
         {series.map(({ name }) => (
           <label key={name} className="flex items-center cursor-pointer">
             <input
@@ -90,6 +85,13 @@ export default function Graph({ graph, onDelete }: GraphProps) {
             <span className="ms-3 text-sm font-medium ">{name}</span>
           </label>
         ))}
+        <button
+          onClick={onDelete}
+          className="flex font-semibold text-red-600 pr-2 p-1 rounded border-2 border-red-600 hover:bg-slate-100 transition"
+        >
+          <IconDelete className="fill-red-600" />
+          <span>Delete</span>
+        </button>
       </div>
     </div>
   );
