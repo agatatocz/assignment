@@ -19,8 +19,9 @@ jest.mock("@/lib/graphs", () => ({
   fetchCountries: jest.fn(),
 }));
 
-jest.mock("react-apexcharts", () => () => {
-  return <div />;
+jest.mock("react-apexcharts", () => {
+  const MockApexChart = () => <div />;
+  return MockApexChart;
 });
 
 describe("Dashboard", () => {
