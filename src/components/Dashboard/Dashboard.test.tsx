@@ -98,7 +98,6 @@ describe("Dashboard", () => {
 
     expect(mockLocalMonthStore.getLocalMonthsCount).toHaveBeenCalled();
     expect(mockLocalGraphStore.getLocalGraphs).toHaveBeenCalled();
-    expect(fetchFunctions.fetchMultipleGraphsData).toHaveBeenCalled();
     expect(fetchFunctions.fetchMultipleGraphsData).toHaveBeenCalledWith(
       ["Belgium", "Italy"],
       2,
